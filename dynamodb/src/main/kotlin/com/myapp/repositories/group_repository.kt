@@ -5,4 +5,4 @@ import org.springframework.data.repository.CrudRepository;
 
 
 @EnableScan
-interface GroupRepository : CrudRepository<MuscleGroup?, String?>
+interface MuscleGroupRepository : CrudRepository<MuscleGroup?, String?>

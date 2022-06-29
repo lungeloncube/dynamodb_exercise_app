@@ -20,7 +20,7 @@ class Muscle {
     private val id: String? = null
 
     @DynamoDBAttribute
-    private val groupId: String? = null
+    private val muscleGroupId: String? = null
 
     @DynamoDBAttribute
     private val name: String? = null

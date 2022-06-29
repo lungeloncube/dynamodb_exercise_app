@@ -32,12 +32,8 @@ dependencies {
 	implementation("com.github.spring-data-dynamodb:spring-data-dynamodb:5.0.3")
 	// https://mvnrepository.com/artifact/javax.validation/validation-api
 	implementation("javax.validation:validation-api:2.0.1.Final")
-
-
-
-
-
-
+	// https://mvnrepository.com/artifact/io.github.boostchicken/spring-data-dynamodb
+//	implementation("io.github.boostchicken:spring-data-dynamodb:5.2.1")
 
 }
 
