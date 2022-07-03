@@ -1,8 +1,8 @@
 package com.myapp.controllers
 
+import com.myapp.dtos.ExerciseResponse
 import com.myapp.dtos.Root
-import com.myapp.models.Exercise
-import com.myapp.models.MuscleGroup
+
 import com.myapp.service.ExercisesService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -17,9 +17,32 @@ class ExercisesController {
     private lateinit var exercisesService: ExercisesService
 
     @GetMapping("/exercise/{exerciseId}")
-    fun getExerciseById(@PathVariable exerciseId: String?): ResponseEntity<Exercise>? {
-        return ResponseEntity.ok(exercisesService.getExerciseById(exerciseId))
+    fun getExerciseById(@PathVariable exerciseId: String?): ResponseEntity<ExerciseResponse> {
+        val exercise = exercisesService.getExerciseById(exerciseId)
+        val levelId = exercise.levelId
+        val level=exercisesService.getLevelById(levelId)
+        val modalityId=exercise.modalityId
+        val modality=exercisesService.getModalityById(modalityId)
+
+        val muscles=exercisesService.getAllMuscles(exerciseId)
+
+
+        return ResponseEntity.ok(ExerciseResponse(
+            id = exercise.id!!, name =exercise.name!!,
+            level =level.name!!, modality =modality.name!!,
+            muscles =muscles, type = exercise.exerciseType!!,
+            class_field = exercise.exerciseClass!!,
+            altExercise = exercise.altExercise!!, altEquipment = exercise.altEquipment!!,
+            link = exercise.link!!,mechanics=exercise.mechanics!!
+        ))
     }
+//    @GetMapping("/muscle/{exerciseId}")
+//    fun getMuscleById(@PathVariable exerciseId: String?) :ResponseEntity<List<Muscle>>{
+//        val muscle=exercisesService.getMuscleByExerciseId(exerciseId)
+//        return ResponseEntity.ok(muscle)
+//
+//
+//    }
 
     @PostMapping("/exercises")
     fun createExercise(@RequestBody exerciseRequest: Root): ResponseEntity<Any>{

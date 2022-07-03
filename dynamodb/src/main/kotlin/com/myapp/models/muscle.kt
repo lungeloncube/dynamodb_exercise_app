@@ -22,7 +22,7 @@ class Muscle() {
    public var id: String? = null
 
     @DynamoDBAttribute
-     public var muscleGroupId: String? = null
+     public var muscleGroupId: String?=null
 
     @DynamoDBAttribute
      public var exerciseId: String? = null

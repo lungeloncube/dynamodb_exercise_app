@@ -1,10 +1,11 @@
 package com.myapp.dtos
 
+
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.myapp.models.Muscle
 
-typealias Root = List<CreateExerciseRequest>;
 
-data class CreateExerciseRequest(
+data class ExerciseResponse(
     @JsonProperty("Id")
     val id: String,
     @JsonProperty("Name")
@@ -12,23 +13,24 @@ data class CreateExerciseRequest(
     @JsonProperty("Level")
     val level: String,
     @JsonProperty("Type")
-    val type: String?,
+    val type: String,
     @JsonProperty("Class")
     val class_field: String,
     @JsonProperty("Mechanics")
     val mechanics: String,
     @JsonProperty("Modality")
     val modality: String,
-    @JsonProperty("Equipment")
-    val equipment: List<String>,
+//    @JsonProperty("Equipment")
+//    val equipment: List<String>,
     @JsonProperty("Alt Equipment")
-    val altEquipment: String ,
+    val altEquipment: String,
     @JsonProperty("Muscles")
-    val muscles: List<String>,
-    @JsonProperty("Aux Muscles")
-    val auxMuscles: List<String>,
-    @JsonProperty("Min Muscles")
-    val minMuscles: List<String>,
+    val muscles: String,
+//    val muscles: List<Muscle>,
+//    @JsonProperty("Aux Muscles")
+//    val auxMuscles: List<String>,
+//    @JsonProperty("Min Muscles")
+//    val minMuscles: List<String>,
     @JsonProperty("Alt Exercise")
     val altExercise: String,
     @JsonProperty("Link")

@@ -30,6 +30,8 @@ class ExercisesService {
     @Autowired
     private lateinit var groupRepository: MuscleGroupRepository
 
+
+
     fun getExerciseById(id: String?): Exercise {
         val exercise: Optional<Exercise?> = exerciseRepository!!.findById(id!!)
         if (exercise.isPresent) {
@@ -37,6 +39,47 @@ class ExercisesService {
         }
         throw NotFoundExceptions("Cant find exercise with that id")
     }
+
+        fun getLevelById(id: String?): Level {
+        val level: Optional<Level?> = levelRepository!!.findById(id!!)
+        if (level.isPresent) {
+            return level.get()
+        }
+            throw NotFoundExceptions("Cant find exercise with that id")
+
+    }
+    fun getModalityById(id: String?): Modality {
+        val modality: Optional<Modality?> = modalityRepository!!.findById(id!!)
+        if (modality.isPresent) {
+            return modality.get()
+        }
+        throw NotFoundExceptions("Cant find exercise with that id")
+
+    }
+
+//    fun getAuxGroup(id: String?): MuscleGroup {
+//        val group: Optional<MuscleGroup?> = groupRepository!!.findById(id!!)
+//        if (group.isPresent) {
+//            return group.get()
+//        }
+//        throw NotFoundExceptions("Cant find group with that id")
+//
+//    }
+
+    fun getAllMuscles(id: String?) :String {
+        val muscles = muscleRepository!!.findAll()
+        var list = mutableListOf<String>()
+        for (muscle in muscles){
+            if (muscle!!.exerciseId==id && muscle.muscleGroupId==null){
+                list.add(muscle.name!!)
+            }
+        }
+        return list.toString()
+    }
+
+
+
+
 
 
     fun handleRequests(requests: List<CreateExerciseRequest>): Array<Any> {
@@ -66,6 +109,13 @@ class ExercisesService {
         exercise.name=exerciseRequest.name
         exercise.levelId = level.id
         exercise.modalityId = modality.id
+        exercise.exerciseType=exerciseRequest.type
+        exercise.exerciseClass=exerciseRequest.class_field
+        exercise.altExercise=exerciseRequest.altExercise
+        exercise.mechanics=exerciseRequest.mechanics
+        exercise.link=exerciseRequest.link
+        exercise.altEquipment=exerciseRequest.altEquipment
+
 
 
 
@@ -86,15 +136,14 @@ class ExercisesService {
 //        minMuscleGroup.exerciseId=exerciseRequest.id
 ////        minMuscleGroup.muscles=exerciseRequest.muscles
         minMuscleGroup.name="MinMuscles"
-
         groupRepository.saveAll(arrayListOf(auxMuscleGroup, minMuscleGroup))
 
         //add muscles to muscle group(Aux)
         for (aux in exerciseRequest.auxMuscles) {
             val muscle = Muscle()
             muscle.id= UUID.randomUUID().toString()
-            muscle.muscleGroupId=auxMuscleGroup.id
-            muscle.exerciseId=null
+            muscle.muscleGroupId= auxMuscleGroup.id!!
+            muscle.exerciseId=exerciseRequest.id
             muscle.name=aux
             muscleRepository.save(muscle)
         }
@@ -104,7 +153,7 @@ class ExercisesService {
             val muscle = Muscle()
             muscle.id= UUID.randomUUID().toString()
             muscle.muscleGroupId=minMuscleGroup.id
-            muscle.exerciseId=null
+            muscle.exerciseId=exerciseRequest.id
             muscle.name=min
 
 
@@ -116,9 +165,9 @@ class ExercisesService {
         for (musc in exerciseRequest.muscles) {
             val muscle = Muscle()
             muscle.id = UUID.randomUUID().toString()
-            muscle.muscleGroupId=null
+//            muscle.muscleGroupId=null
             muscle.exerciseId=exerciseRequest.id
-            muscle.name=exerciseRequest.name
+            muscle.name=musc
             muscleRepository.save(muscle)
         }
 

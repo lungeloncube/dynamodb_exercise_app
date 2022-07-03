@@ -26,5 +26,23 @@ class Exercise() {
     @DynamoDBAttribute
     public var name: String? = null
 
+    @DynamoDBAttribute
+    public var exerciseType: String? = null
+
+    @DynamoDBAttribute
+    public var exerciseClass: String? = null
+
+    @DynamoDBAttribute
+    public var mechanics: String? = null
+
+    @DynamoDBAttribute
+    public var altEquipment: String? = null
+
+    @DynamoDBAttribute
+    public var altExercise: String? = null
+
+    @DynamoDBAttribute
+    public var link: String? = null
+
 
 }
