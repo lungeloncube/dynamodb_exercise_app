@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 
 @EnableScan
-interface ExerciseRepository : CrudRepository<Exercise?, String?>
+interface ExerciseRepository : CrudRepository<Exercise?, String?>{
+    
+}
